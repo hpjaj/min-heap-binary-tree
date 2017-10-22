@@ -1,4 +1,4 @@
-# Min Headp Binary Tree
+# Min Heap Binary Tree
 
 ### Objective
 

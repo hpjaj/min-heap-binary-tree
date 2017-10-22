@@ -30,6 +30,7 @@ RSpec.describe MinHeapBinaryTree do
 
         min_heap_tree.insert(new_node)
 
+        expect(min_heap_tree.root).to eq new_node
         expect(min_heap_tree.tree).to eq [nil, new_node, initial_node]
       end
     end

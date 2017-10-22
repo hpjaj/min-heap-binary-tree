@@ -1,9 +1,12 @@
 class MinHeapBinaryTree
-  attr_reader :root, :tree
+  attr_reader :tree
 
   def initialize(root)
     @tree = [nil, root]
-    @root = tree[1]
+  end
+
+  def root
+    tree[1]
   end
 
   def insert(node)
