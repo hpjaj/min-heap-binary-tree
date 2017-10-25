@@ -29,7 +29,9 @@ private
     problems = 0
 
     tree.each_with_index do |node, index|
+      # we can this one because it is nil
       next if index == 0
+      # we skip this one because root does not have a parent
       next if index == 1
 
       if parent(index).value > node.value
