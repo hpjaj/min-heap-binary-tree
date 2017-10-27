@@ -16,10 +16,16 @@ class MinHeapBinaryTree
   end
 
   def delete(node)
-    swap! node, tree[tree.length - 1]
-    node_to_delete = tree.pop
-    
-    set_min_heap_state
+    replacement_node = tree[tree.length - 1]
+    swap! node, replacement_node
+    tree.pop
+    # swap up
+    if replacement_node > replacement_node.parent
+      swap_down
+    end
+    if replacement_node < replacement_node.parent
+      in_min_heap_state
+    end
   end
 
 
@@ -98,5 +104,22 @@ private
 
   def parents_index(index)
     index / 2
+  end
+
+  def swap_down(node)
+    problems == 0
+    if replacement_node.left && replacement_node.right
+      find lower value node.child
+      swap replacement_node, node_to_swap_with_two_children
+
+      problems += 1
+    else
+      swap replacement_node, replacement_node.left_child
+      problems += 1
+    end
+  end
+
+  def node_to_swap_with_two_children
+    replacement_node.left_child > replacement_node.right_child ? replacement_node.right_child : replacement_node.left_child
   end
 end
