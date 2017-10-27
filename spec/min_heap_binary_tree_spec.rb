@@ -1,4 +1,4 @@
-require 'min_heap_binary_tree'
+
 RSpec.describe MinHeapBinaryTree do
   describe "#tree" do
     it "should create a tree with a root node in the index 1 position" do
@@ -80,29 +80,29 @@ RSpec.describe MinHeapBinaryTree do
     end
   end
 
-  # describe "#delete" do
-  #   it "properly deletes node and keeps min heap state" do
-  #     initial_node = Node.new 5
-  #     min_heap_tree = MinHeapBinaryTree.new(initial_node)
-  #
-  #     node_7 = Node.new 7
-  #     node_3 = Node.new 3
-  #     node_6 = Node.new 6
-  #
-  #     min_heap_tree.insert(node_7)
-  #     min_heap_tree.insert(node_3)
-  #     min_heap_tree.insert(node_6)
-  #
-  #     min_heap_tree.delete(root)
-  #
-  #     expect(min_heap_tree.tree)to eq(
-  #       [
-  #         nil,
-  #         initial_node,
-  #         node_6,
-  #         node_7
-  #       ]
-  #     )
-  #   end
-  # end
+  describe "#delete" do
+    it "properly deletes node and keeps min heap state" do
+      initial_node = Node.new 5
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_7 = Node.new 7
+      node_3 = Node.new 3
+      node_6 = Node.new 6
+
+      min_heap_tree.insert(node_7)
+      min_heap_tree.insert(node_3)
+      min_heap_tree.insert(node_6)
+
+      min_heap_tree.delete(node_7)
+
+      expect(min_heap_tree.tree).to eq(
+        [
+          nil,
+          initial_node,
+          node_6,
+          node_7
+        ]
+      )
+    end
+  end
 end
