@@ -16,8 +16,9 @@ class MinHeapBinaryTree
   end
 
   def delete(node)
-    replacement_node = tree[tree.length - 1]
-    swap! node, replacement_node
+    replacement_node = tree[-1]
+    x = tree.find_index(node)
+    swap! tree[x], replacement_node
     tree.pop
     # swap up
     if replacement_node > replacement_node.parent
@@ -28,6 +29,13 @@ class MinHeapBinaryTree
     end
   end
 
+  def find(node)
+    tree.each_with_index do |node, index|
+      if node.value == node
+        tree[index]
+      end
+    end
+  end
 
   #     # find bottom most right index
   # # take that index and replace deleting index

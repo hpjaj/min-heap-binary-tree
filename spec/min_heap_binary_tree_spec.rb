@@ -1,4 +1,3 @@
-
 RSpec.describe MinHeapBinaryTree do
   describe "#tree" do
     it "should create a tree with a root node in the index 1 position" do
