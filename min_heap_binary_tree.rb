@@ -108,13 +108,13 @@ private
 
   def swap_down(node)
     problems == 0
-    if replacement_node.left && replacement_node.right
-      find lower value node.child
-      swap replacement_node, node_to_swap_with_two_children
+    if replacement_node.left_child != nil && replacement_node.right != nil
+      # find lower value node.child
+      swap! replacement_node, node_to_swap_with_two_children
 
       problems += 1
     else
-      swap replacement_node, replacement_node.left_child
+      swap! replacement_node, replacement_node.left_child
       problems += 1
     end
   end
