@@ -41,6 +41,15 @@ class MinHeapBinaryTree
   #       if children == to each other pick left_child
   #       repeat
 
+
+  def find(node)
+    if node != nil
+      @tree.find do |item|
+        item.value == node
+        @tree[item]
+    end
+  end
+
 private
 
   def set_min_heap_state
@@ -108,7 +117,6 @@ private
   end
 
   def node_to_swap_with_two_children
-    byebug
     left_child(x).value > right_child(x).value ? right_child(x) : left_child(x)
   end
 
@@ -118,9 +126,6 @@ private
       swap! x, node_to_swap_with_two_children
     else
       swap! x, parents_index(x)
-      byebug
     end
   end
-
-
 end

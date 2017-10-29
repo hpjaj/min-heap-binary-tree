@@ -104,7 +104,7 @@ RSpec.describe MinHeapBinaryTree do
       )
     end
 
-    it "properly deltes a node and keeps min state from level 3" do
+    it "properly deletes a node and keeps min state from level 3" do
       initial_node = Node.new 8
       min_heap_tree = MinHeapBinaryTree.new(initial_node)
 
@@ -141,7 +141,8 @@ RSpec.describe MinHeapBinaryTree do
         ]
       )
     end
-    it "properly deltes a node and keeps min state from level 3" do
+
+    it "properly deletes a node and keeps min state from level 3" do
       initial_node = Node.new 1
       min_heap_tree = MinHeapBinaryTree.new(initial_node)
 
@@ -215,6 +216,55 @@ RSpec.describe MinHeapBinaryTree do
           node_22,
           node_27,
           node_21
+        ]
+      )
+    end
+  end
+
+  describe "#print" do
+    it "properly prints the whole tree" do
+      initial_node = Node.new 5
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_7 = Node.new 7
+      node_3 = Node.new 3
+      node_9 = Node.new 9
+      node_1 = Node.new 1
+      node_2 = Node.new 2
+      node_4 = Node.new 4
+      node_8 = Node.new 8
+
+      min_heap_tree.print
+
+      expect(min_heap_tree.tree)to eq(
+        [
+          nil,
+          node_3,
+          node_2,
+          node_8,
+          node_7,
+          initial_node,
+          node_4,
+          node_9
+        ]
+      )
+    end
+  end
+
+  describe "#find" do
+    it "finds a node in the tree" do
+      initial_node = Node.new 3
+      min_heap_tree = MinHeapBinaryTree(initial_node)
+
+      node_2 = Node.new 2
+      node_7 = Node.new 7
+
+      min_heap_tree.find(node_7)
+
+      expect(min_heap_tree.tree).to eq(
+        [
+          nil,
+          node_7
         ]
       )
     end
