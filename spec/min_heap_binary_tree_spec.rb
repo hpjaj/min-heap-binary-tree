@@ -159,6 +159,7 @@ RSpec.describe MinHeapBinaryTree do
       min_heap_tree.insert(node_9)
       min_heap_tree.insert(node_11)
       min_heap_tree.insert(node_8)
+      min_heap_tree.insert(node_15)
       min_heap_tree.insert(node_17)
       min_heap_tree.insert(node_21)
 
@@ -174,6 +175,45 @@ RSpec.describe MinHeapBinaryTree do
           node_11,
           node_8,
           node_15,
+          node_21
+        ]
+      )
+    end
+
+    it "properly deltes a node and keeps min state from level 3 and heapup" do
+      initial_node = Node.new 1
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_9 = Node.new 9
+      node_19 = Node.new 19
+      node_17 = Node.new 17
+      node_11 = Node.new 11
+      node_22 = Node.new 22
+      node_27 = Node.new 27
+      node_21 = Node.new 21
+      node_33 = Node.new 33
+
+      min_heap_tree.insert(node_9)
+      min_heap_tree.insert(node_22)
+      min_heap_tree.insert(node_17)
+      min_heap_tree.insert(node_11)
+      min_heap_tree.insert(node_33)
+      min_heap_tree.insert(node_27)
+      min_heap_tree.insert(node_21)
+      min_heap_tree.insert(node_19)
+
+      min_heap_tree.delete(node_33)
+
+      expect(min_heap_tree.tree).to eq(
+        [
+          nil,
+          initial_node,
+          node_9,
+          node_19,
+          node_17,
+          node_11,
+          node_22,
+          node_27,
           node_21
         ]
       )

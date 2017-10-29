@@ -11,7 +11,7 @@ class MinHeapBinaryTree
 
   def insert(node)
     tree << node
-    
+
     set_min_heap_state
   end
 
@@ -23,7 +23,7 @@ class MinHeapBinaryTree
     tree.pop
     # swap up
     if replacement_node.value < parent(x).value
-      swap_down
+      swap_down(tree[x])
     else
       set_min_heap_state
     end
@@ -107,15 +107,20 @@ private
     index / 2
   end
 
+  def node_to_swap_with_two_children
+    byebug
+    left_child(x).value > right_child(x).value ? right_child(x) : left_child(x)
+  end
+
   def swap_down(node)
+    x = tree.find_index(node)
     if left_child(x) != nil && right_child(x) != nil
       swap! x, node_to_swap_with_two_children
     else
-      swap! x, left_child(x)
+      swap! x, parents_index(x)
+      byebug
     end
   end
 
-  def node_to_swap_with_two_children
-    left_child(x).value > right_child(x).value ? right_child(x) : left_child(x)
-  end
+
 end
