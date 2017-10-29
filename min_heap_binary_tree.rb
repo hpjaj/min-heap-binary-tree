@@ -11,31 +11,24 @@ class MinHeapBinaryTree
 
   def insert(node)
     tree << node
-
+    
     set_min_heap_state
   end
 
   def delete(node)
+    # byebug
     replacement_node = tree[-1]
     x = tree.find_index(node)
-    swap! tree[x], replacement_node
+    swap! x, -1
     tree.pop
     # swap up
-    if replacement_node > replacement_node.parent
+    if replacement_node.value < parent(x).value
       swap_down
-    end
-    if replacement_node < replacement_node.parent
-      in_min_heap_state
+    else
+      set_min_heap_state
     end
   end
 
-  def find(node)
-    tree.each_with_index do |node, index|
-      if node.value == node
-        tree[index]
-      end
-    end
-  end
 
   #     # find bottom most right index
   # # take that index and replace deleting index
@@ -115,19 +108,14 @@ private
   end
 
   def swap_down(node)
-    problems == 0
-    if replacement_node.left_child != nil && replacement_node.right != nil
-      # find lower value node.child
-      swap! replacement_node, node_to_swap_with_two_children
-
-      problems += 1
+    if left_child(x) != nil && right_child(x) != nil
+      swap! x, node_to_swap_with_two_children
     else
-      swap! replacement_node, replacement_node.left_child
-      problems += 1
+      swap! x, left_child(x)
     end
   end
 
   def node_to_swap_with_two_children
-    replacement_node.left_child > replacement_node.right_child ? replacement_node.right_child : replacement_node.left_child
+    left_child(x).value > right_child(x).value ? right_child(x) : left_child(x)
   end
 end

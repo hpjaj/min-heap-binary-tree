@@ -92,14 +92,89 @@ RSpec.describe MinHeapBinaryTree do
       min_heap_tree.insert(node_3)
       min_heap_tree.insert(node_6)
 
-      min_heap_tree.delete(node_7)
+      min_heap_tree.delete(node_6)
+
+      expect(min_heap_tree.tree).to eq(
+        [
+          nil,
+          node_3,
+          node_7,
+          initial_node
+        ]
+      )
+    end
+
+    it "properly deltes a node and keeps min state from level 3" do
+      initial_node = Node.new 8
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_9 = Node.new 9
+      node_3 = Node.new 3
+      node_4 = Node.new 4
+      node_6 = Node.new 6
+      node_2 = Node.new 2
+      node_7 = Node.new 7
+      node_1 = Node.new 1
+      node_8 = Node.new 8
+      node_5 = Node.new 5
+
+      min_heap_tree.insert(node_5)
+      min_heap_tree.insert(node_7)
+      min_heap_tree.insert(node_4)
+      min_heap_tree.insert(node_6)
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_1)
+      min_heap_tree.insert(node_3)
+
+      min_heap_tree.delete(node_3)
+
+      expect(min_heap_tree.tree).to eq(
+        [
+          nil,
+          node_1,
+          node_5,
+          node_2,
+          initial_node,
+          node_6,
+          node_7,
+          node_4
+        ]
+      )
+    end
+    it "properly deltes a node and keeps min state from level 3" do
+      initial_node = Node.new 1
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_5 = Node.new 5
+      node_6 = Node.new 6
+      node_9 = Node.new 9
+      node_11 = Node.new 11
+      node_8 = Node.new 8
+      node_15 = Node.new 15
+      node_17 = Node.new 17
+      node_21 = Node.new 21
+
+      min_heap_tree.insert(node_5)
+      min_heap_tree.insert(node_6)
+      min_heap_tree.insert(node_9)
+      min_heap_tree.insert(node_11)
+      min_heap_tree.insert(node_8)
+      min_heap_tree.insert(node_17)
+      min_heap_tree.insert(node_21)
+
+      min_heap_tree.delete(node_5)
 
       expect(min_heap_tree.tree).to eq(
         [
           nil,
           initial_node,
+          node_9,
           node_6,
-          node_7
+          node_17,
+          node_11,
+          node_8,
+          node_15,
+          node_21
         ]
       )
     end
