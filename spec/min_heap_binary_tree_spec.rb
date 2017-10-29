@@ -236,7 +236,7 @@ RSpec.describe MinHeapBinaryTree do
 
       min_heap_tree.print
 
-      expect(min_heap_tree.tree)to eq(
+      expect(min_heap_tree.tree).to eq(
         [
           nil,
           node_3,
@@ -254,16 +254,18 @@ RSpec.describe MinHeapBinaryTree do
   describe "#find" do
     it "finds a node in the tree" do
       initial_node = Node.new 3
-      min_heap_tree = MinHeapBinaryTree(initial_node)
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
 
       node_2 = Node.new 2
       node_7 = Node.new 7
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_7)
 
       min_heap_tree.find(node_7)
 
       expect(min_heap_tree.tree).to eq(
         [
-          nil,
           node_7
         ]
       )
