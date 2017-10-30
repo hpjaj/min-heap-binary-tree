@@ -41,10 +41,12 @@ class MinHeapBinaryTree
   #       if children == to each other pick left_child
   #       repeat
 def find(node)
-  tree.select { |item|
+  tree.each do |item|
     byebug
-    tree[item] == node
-  }
+    if item == node
+      p "#{item} is in the tree"
+    end
+  end
 end
 
 
