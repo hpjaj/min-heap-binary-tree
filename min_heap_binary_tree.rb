@@ -16,16 +16,16 @@ class MinHeapBinaryTree
   end
 
   def delete(node)
-    # byebug
+    byebug
     replacement_node = tree[-1]
     x = tree.find_index(node)
     swap! x, -1
     tree.pop
     # swap up
-    if replacement_node.value < parent(x).value
+    if parent(x).value > replacement_node.value
+      swap_up
+    elsif replacement_node.value > left_child(x).value || right_child(x).value
       swap_down(tree[x])
-    else
-      set_min_heap_state
     end
   end
 
@@ -40,9 +40,10 @@ class MinHeapBinaryTree
   #       smaller child gets swapped up
   #       if children == to each other pick left_child
   #       repeat
+
 def find(node)
   tree.each do |item|
-    byebug
+    # byebug
     if item == node
       p "#{item} is in the tree"
     end
@@ -116,14 +117,20 @@ private
     index / 2
   end
 
-  def node_to_swap_with_two_children
-    left_child(x).value > right_child(x).value ? right_child(x) : left_child(x)
+  def index_to_swap_with_two_children(x)
+    if right_child(x).value <= left_child(x).value
+      (2 * x) + 1
+    else
+      2 * x
+    end
   end
 
   def swap_down(node)
     x = tree.find_index(node)
     if left_child(x) != nil && right_child(x) != nil
-      swap! x, node_to_swap_with_two_children
+      byebug
+      index_to_swap_with_two_children(x)
+      swap! x, index_to_swap_with_two_children(x)
     else
       swap! x, parents_index(x)
     end
