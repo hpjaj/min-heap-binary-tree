@@ -17,14 +17,14 @@ class MinHeapBinaryTree
 
   def delete(node)
     replacement_node = tree[-1]
-    x = tree.find_index(node)
-    swap! x, -1
+    delete_index = tree.find_index(node)
+    swap! delete_index, -1
     tree.pop
-    if parent(x).value > replacement_node.value
-      swap! x, parents_index(x)
-    elsif left_child(x) != nil && right_child(x) != nil
-      if (replacement_node.value > left_child(x).value) || (replacement_node.value > right_child(x).value)
-         swap_down(tree[x])
+    if parent(delete_index).value > replacement_node.value
+      swap! delete_index, parents_index(delete_index)
+    elsif left_child(delete_index) != nil && right_child(delete_index) != nil
+      if (replacement_node.value > left_child(delete_index).value) || (replacement_node.value > right_child(delete_index).value)
+         swap_down(tree[delete_index])
       end
     end
   end
@@ -111,29 +111,40 @@ private
     (index * 2) + 1
   end
 
-  def index_to_swap_with_two_children(x)
-    if right_child(x).value <= left_child(x).value
-      (2 * x) + 1
+  def index_to_swap_with_two_children(index)
+    if right_child(index).value <= left_child(index).value
+      (2 * index) + 1
     else
-      2 * x
+      2 * index
     end
   end
 
+  def only_left_child_smaller?(index)
+    (left_child(index).value < tree[index].value) && (tree[index].value <= right_child(index).value)
+  end
+
+  def only_right_child_smaller?(index)
+    (tree[index].value < left_child(index).value) && (right_child(index).value < tree[index].value)
+  end
+
+  def left_child_larger?(index)
+    left_child(index) != nil && tree[index].value > left_child(index).value
+  end
+
   def swap_down(node)
-    x = tree.find_index(node)
-    if left_child(x) != nil && right_child(x) != nil
-      if (tree[x].value <= left_child(x).value) && (tree[x].value <= right_child(x).value)
-      elsif (left_child(x).value < tree[x].value) && (tree[x].value <= right_child(x).value)
-        swap! x, left_child_index(x)
-      elsif (tree[x].value < left_child(x).value) && (right_child(x).value < tree[x].value)
-        swap! x, right_child_index(x)
+    replacement_index = tree.find_index(node)
+    if left_child(replacement_index) != nil && right_child(replacement_index) != nil
+      if only_left_child_smaller?(replacement_index)
+        swap! replacement_index, left_child_index(replacement_index)
+      elsif only_right_child_smaller?(replacement_index)
+        swap! replacement_index, right_child_index(replacement_index)
       else
-        y = index_to_swap_with_two_children(x)
-        swap! x, index_to_swap_with_two_children(x)
-        swap_down(tree[y])
+        temp = index_to_swap_with_two_children(replacement_index)
+        swap! replacement_index, index_to_swap_with_two_children(replacement_index)
+        swap_down(tree[temp])
       end
-    elsif left_child(x) != nil && tree[x].value > left_child(x).value
-        swap! x, left_child_index(x)
+    elsif left_child_larger?(replacement_index)
+        swap! replacement_index, left_child_index(replacement_index)
     end
   end
 end
