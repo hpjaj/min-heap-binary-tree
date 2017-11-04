@@ -103,46 +103,47 @@ RSpec.describe MinHeapBinaryTree do
         ]
       )
     end
+    context "properly deletes a node and keeps min state from level 1 with 2 children" do
+      it "after delete chooses proper child to swap and filters down to keep min-heap" do
+        initial_node = Node.new 8
+        min_heap_tree = MinHeapBinaryTree.new(initial_node)
 
-    it "properly deletes a node with 2 children and swaps with correct child" do
-      initial_node = Node.new 8
-      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+        node_9 = Node.new 9
+        node_3 = Node.new 3
+        node_4 = Node.new 4
+        node_6 = Node.new 6
+        node_2 = Node.new 2
+        node_7 = Node.new 7
+        node_1 = Node.new 1
+        node_8 = Node.new 8
+        node_5 = Node.new 5
 
-      node_9 = Node.new 9
-      node_3 = Node.new 3
-      node_4 = Node.new 4
-      node_6 = Node.new 6
-      node_2 = Node.new 2
-      node_7 = Node.new 7
-      node_1 = Node.new 1
-      node_8 = Node.new 8
-      node_5 = Node.new 5
+        min_heap_tree.insert(node_5)
+        min_heap_tree.insert(node_7)
+        min_heap_tree.insert(node_4)
+        min_heap_tree.insert(node_6)
+        min_heap_tree.insert(node_2)
+        min_heap_tree.insert(node_1)
+        min_heap_tree.insert(node_3)
 
-      min_heap_tree.insert(node_5)
-      min_heap_tree.insert(node_7)
-      min_heap_tree.insert(node_4)
-      min_heap_tree.insert(node_6)
-      min_heap_tree.insert(node_2)
-      min_heap_tree.insert(node_1)
-      min_heap_tree.insert(node_3)
+        min_heap_tree.delete(node_3)
 
-      min_heap_tree.delete(node_3)
-
-      expect(min_heap_tree.tree).to eq(
-        [
-          nil,
-          node_1,
-          node_5,
-          node_2,
-          initial_node,
-          node_6,
-          node_7,
-          node_4
-        ]
-      )
+        expect(min_heap_tree.tree).to eq(
+          [
+            nil,
+            node_1,
+            node_5,
+            node_2,
+            initial_node,
+            node_6,
+            node_7,
+            node_4
+          ]
+        )
+      end
     end
 
-    it "properly deletes a node and keeps min state from level 1 with 2 children" do
+    it "after delete it swaps with left_child and swaps again with new child to keep min-heap state" do
       initial_node = Node.new 1
       min_heap_tree = MinHeapBinaryTree.new(initial_node)
 
@@ -181,7 +182,7 @@ RSpec.describe MinHeapBinaryTree do
       )
     end
 
-    it "properly deletes a node with 2 children and picks right child to swap" do
+    it "properly deletes a node with 2 children and picks right_child to swap" do
       initial_node = Node.new 1
       min_heap_tree = MinHeapBinaryTree.new(initial_node)
 
@@ -259,7 +260,7 @@ RSpec.describe MinHeapBinaryTree do
       )
     end
 
-    it "properly deltes a node and keeps min state from level 3 and heapup" do
+    it "properly deletes a node and swaps up if child is smaller then parent" do
       initial_node = Node.new 1
       min_heap_tree = MinHeapBinaryTree.new(initial_node)
 

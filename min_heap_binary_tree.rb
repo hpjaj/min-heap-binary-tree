@@ -23,7 +23,7 @@ class MinHeapBinaryTree
     tree.pop
     # swap up
     if parent(x).value > replacement_node.value
-      swap_up
+      swap! x, parents_index(x)
     elsif left_child(x) != nil && right_child(x) != nil
       if (replacement_node.value > left_child(x).value) || (replacement_node.value > right_child(x).value)
          swap_down(tree[x])
@@ -136,7 +136,6 @@ private
   end
 
   def swap_down(node)
-    byebug
     x = tree.find_index(node)
     if left_child(x) != nil && right_child(x) != nil
       if (tree[x].value <= left_child(x).value) && (tree[x].value <= right_child(x).value)
