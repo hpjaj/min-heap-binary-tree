@@ -16,7 +16,7 @@ class MinHeapBinaryTree
   end
 
   def delete(node)
-    byebug
+
     replacement_node = tree[-1]
     x = tree.find_index(node)
     swap! x, -1
@@ -24,8 +24,10 @@ class MinHeapBinaryTree
     # swap up
     if parent(x).value > replacement_node.value
       swap_up
-    elsif replacement_node.value > left_child(x).value || right_child(x).value
-      swap_down(tree[x])
+    elsif left_child(x) != nil && right_child(x) != nil
+      if (replacement_node.value > left_child(x).value) || (replacement_node.value > right_child(x).value)
+         swap_down(tree[x])
+      end
     end
   end
 
@@ -117,6 +119,14 @@ private
     index / 2
   end
 
+  def left_child_index(index)
+    index * 2
+  end
+
+  def right_child_index(index)
+    (index * 2) + 1
+  end
+
   def index_to_swap_with_two_children(x)
     if right_child(x).value <= left_child(x).value
       (2 * x) + 1
@@ -126,13 +136,22 @@ private
   end
 
   def swap_down(node)
+    byebug
     x = tree.find_index(node)
     if left_child(x) != nil && right_child(x) != nil
-      byebug
-      index_to_swap_with_two_children(x)
-      swap! x, index_to_swap_with_two_children(x)
-    else
-      swap! x, parents_index(x)
+      if (tree[x].value <= left_child(x).value) && (tree[x].value <= right_child(x).value)
+        # do nothing
+      elsif (left_child(x).value < tree[x].value) && (tree[x].value <= right_child(x).value)
+        swap! x, left_child_index(x)
+      elsif (tree[x].value < left_child(x).value) && (right_child(x).value < tree[x].value)
+        swap! x, right_child_index(x)
+      else
+        y = index_to_swap_with_two_children(x)
+        swap! x, index_to_swap_with_two_children(x)
+        swap_down(tree[y])
+      end
+    elsif left_child(x) != nil && tree[x].value > left_child(x).value
+        swap! x, left_child_index(x)
     end
   end
 end
