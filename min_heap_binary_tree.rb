@@ -20,6 +20,7 @@ class MinHeapBinaryTree
     delete_index = tree.find_index(node)
     swap! delete_index, -1
     tree.pop
+
     if parent(delete_index).value > replacement_node.value
       swap! delete_index, parents_index(delete_index)
     elsif left_child(delete_index) != nil && right_child(delete_index) != nil
@@ -131,17 +132,22 @@ private
     left_child(index) != nil && tree[index].value > left_child(index).value
   end
 
+  def both_children_smaller_swap(replacement_index)
+    temp = index_to_swap_with_two_children(replacement_index)
+    swap! replacement_index, index_to_swap_with_two_children(replacement_index)
+    swap_down(tree[temp])
+  end
+
   def swap_down(node)
     replacement_index = tree.find_index(node)
+    
     if left_child(replacement_index) != nil && right_child(replacement_index) != nil
       if only_left_child_smaller?(replacement_index)
         swap! replacement_index, left_child_index(replacement_index)
       elsif only_right_child_smaller?(replacement_index)
         swap! replacement_index, right_child_index(replacement_index)
       else
-        temp = index_to_swap_with_two_children(replacement_index)
-        swap! replacement_index, index_to_swap_with_two_children(replacement_index)
-        swap_down(tree[temp])
+        both_children_smaller_swap(replacement_index)
       end
     elsif left_child_larger?(replacement_index)
         swap! replacement_index, left_child_index(replacement_index)
