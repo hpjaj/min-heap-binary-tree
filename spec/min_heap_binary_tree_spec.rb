@@ -103,6 +103,7 @@ RSpec.describe MinHeapBinaryTree do
         ]
       )
     end
+    
     context "properly deletes a node and keeps min state from level 1 with 2 children" do
       it "after delete chooses proper child to swap and filters down to keep min-heap" do
         initial_node = Node.new 8

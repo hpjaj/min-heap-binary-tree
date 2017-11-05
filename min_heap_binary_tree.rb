@@ -18,23 +18,21 @@ class MinHeapBinaryTree
   def delete(node)
     replacement_node = tree[-1]
     delete_index = tree.find_index(node)
-    swap! delete_index, -1
-    tree.pop
 
-    if parent(delete_index).value > replacement_node.value
-      swap! delete_index, parents_index(delete_index)
-    elsif left_child(delete_index) != nil && right_child(delete_index) != nil
-      replacement_greater_than_children(replacement_node, delete_index)
-    end
+    delete_node(delete_index)
+
+    parent_child_check(replacement_node, delete_index)
   end
 
-def find(node)
-  tree.each do |item|
-    if item == node
-      p "#{item} is in the tree"
+  def breadth_first_search(target_node,root)
+    return nil if target_node.nil?
+    queue = Queue.new
+    queue.enq(root)
+    until queue.empty?
+      current_node = queue.deq
+
     end
   end
-end
 
 private
 
@@ -111,19 +109,32 @@ private
   end
 
   def index_to_swap_with_two_children(index)
-    if right_child(index).value <= left_child(index).value
+    if left_child(index).value >= right_child(index).value
       (2 * index) + 1
     else
       2 * index
     end
   end
 
+  def delete_node(delete_index)
+    swap! delete_index, -1
+    tree.pop
+  end
+
+  def parent_child_check(replacement_node, delete_index)
+    if parent(delete_index).value > replacement_node.value
+      swap! delete_index, parents_index(delete_index)
+    elsif has_two_children?(delete_index)
+      replacement_greater_than_children(replacement_node, delete_index)
+    end
+  end
+
   def only_left_child_smaller?(index)
-    (left_child(index).value < tree[index].value) && (tree[index].value <= right_child(index).value)
+    (tree[index].value > left_child(index).value) && (right_child(index).value >= tree[index].value)
   end
 
   def only_right_child_smaller?(index)
-    (tree[index].value < left_child(index).value) && (right_child(index).value < tree[index].value)
+    (left_child(index).value > tree[index].value) && (tree[index].value > right_child(index).value)
   end
 
   def left_child_larger?(index)
@@ -131,9 +142,10 @@ private
   end
 
   def both_children_smaller_swap(replacement_index)
-    temp = index_to_swap_with_two_children(replacement_index)
+    index_to_swap = index_to_swap_with_two_children(replacement_index)
+
     swap! replacement_index, index_to_swap_with_two_children(replacement_index)
-    swap_down(tree[temp])
+    swap_down(tree[index_to_swap])
   end
 
   def two_children_swap(replacement_index)
@@ -165,4 +177,5 @@ private
        swap_down(tree[delete_index])
     end
   end
+
 end
