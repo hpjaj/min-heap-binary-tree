@@ -24,9 +24,7 @@ class MinHeapBinaryTree
     if parent(delete_index).value > replacement_node.value
       swap! delete_index, parents_index(delete_index)
     elsif left_child(delete_index) != nil && right_child(delete_index) != nil
-      if (replacement_node.value > left_child(delete_index).value) || (replacement_node.value > right_child(delete_index).value)
-         swap_down(tree[delete_index])
-      end
+      replacement_greater_than_children(replacement_node, delete_index)
     end
   end
 
@@ -138,19 +136,33 @@ private
     swap_down(tree[temp])
   end
 
+  def two_children_swap(replacement_index)
+    if only_left_child_smaller?(replacement_index)
+      swap! replacement_index, left_child_index(replacement_index)
+    elsif only_right_child_smaller?(replacement_index)
+      swap! replacement_index, right_child_index(replacement_index)
+    else
+      both_children_smaller_swap(replacement_index)
+    end
+  end
+
+  def has_two_children?(replacement_index)
+    left_child(replacement_index) != nil && right_child(replacement_index) != nil
+  end
+
   def swap_down(node)
     replacement_index = tree.find_index(node)
-    
-    if left_child(replacement_index) != nil && right_child(replacement_index) != nil
-      if only_left_child_smaller?(replacement_index)
-        swap! replacement_index, left_child_index(replacement_index)
-      elsif only_right_child_smaller?(replacement_index)
-        swap! replacement_index, right_child_index(replacement_index)
-      else
-        both_children_smaller_swap(replacement_index)
-      end
+
+    if has_two_children?(replacement_index)
+      two_children_swap(replacement_index)
     elsif left_child_larger?(replacement_index)
-        swap! replacement_index, left_child_index(replacement_index)
+      swap! replacement_index, left_child_index(replacement_index)
+    end
+  end
+
+  def replacement_greater_than_children(replacement_node, delete_index)
+    if (replacement_node.value > left_child(delete_index).value) || (replacement_node.value > right_child(delete_index).value)
+       swap_down(tree[delete_index])
     end
   end
 end
