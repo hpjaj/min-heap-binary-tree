@@ -16,6 +16,7 @@ class MinHeapBinaryTree
   end
 
   def delete(node)
+    # byebug
     replacement_node = tree[-1]
     delete_index = tree.find_index(node)
 
@@ -122,11 +123,18 @@ private
   end
 
   def parent_child_check(replacement_node, delete_index)
+    byebug
     if parent(delete_index).value > replacement_node.value
       swap! delete_index, parents_index(delete_index)
     elsif has_two_children?(delete_index)
       replacement_greater_than_children(replacement_node, delete_index)
+    elsif has_only_smaller_left_child?(replacement_node, delete_index)
+      swap! delete_index, left_child_index(delete_index)
     end
+  end
+
+  def has_only_smaller_left_child?(replacement_node, delete_index)
+    left_child(delete_index) != nil && replacement_node.value > left_child(delete_index).value
   end
 
   def only_left_child_smaller?(index)
@@ -178,4 +186,9 @@ private
     end
   end
 
+  def replacement_only_left_child(replacement_index)
+    if replacement_node.value > left_child(replacement_index).value
+      swap! replacement_index, left_child_index(replacement_index)
+    end
+  end
 end
