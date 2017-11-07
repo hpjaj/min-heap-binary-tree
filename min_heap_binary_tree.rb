@@ -16,12 +16,10 @@ class MinHeapBinaryTree
   end
 
   def delete(node)
-    # byebug
     replacement_node = tree[-1]
     delete_index = tree.find_index(node)
 
     delete_node(delete_index)
-
     parent_child_check(replacement_node, delete_index)
   end
 
@@ -111,7 +109,7 @@ private
 
   def index_to_swap_with_two_children(index)
     if left_child(index).value >= right_child(index).value
-      (2 * index) + 1
+     (2 * index) + 1
     else
       2 * index
     end
@@ -123,7 +121,6 @@ private
   end
 
   def parent_child_check(replacement_node, delete_index)
-    byebug
     if parent(delete_index).value > replacement_node.value
       swap! delete_index, parents_index(delete_index)
     elsif has_two_children?(delete_index)
