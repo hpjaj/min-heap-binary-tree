@@ -178,12 +178,12 @@ private
   end
 
   def replacement_greater_than_children(replacement_node, delete_index)
-    if replacement_value_greater_then_either_child?(replacement_node, delete_index)
+    if replacement_value_greater_than_either_child?(replacement_node, delete_index)
        swap_down(tree[delete_index])
     end
   end
 
-  def replacement_value_greater_then_either_child?(replacement_node, delete_index)
+  def replacement_value_greater_than_either_child?(replacement_node, delete_index)
     (replacement_node.value > left_child(delete_index).value) || (replacement_node.value > right_child(delete_index).value)
   end
 
