@@ -24,7 +24,7 @@ class MinHeapBinaryTree
   end
 
   def find(target_node)
-    target_index = tree.find_index(target_node)
+    index = 1
     byebug
     return nil if target_node.nil?
     queue = Queue.new
@@ -33,13 +33,16 @@ class MinHeapBinaryTree
       current_node = queue.deq
       # compare current_node to target_node node
       if current_node == target_node
-        p "#{target_node} is in the tree"
+        return current_node
       elsif
-        queue.enq(left_child(target_index))
-        queue.enq(right_child(target_index))
+        left = left_child(index)
+        right = right_child(index)
+        queue.enq(left) 
+        queue.enq(right)
       end
-      return nil
+      index += 1
     end
+    return nil
   end
 
   def printf(tree)
