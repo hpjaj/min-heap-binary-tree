@@ -23,16 +23,28 @@ class MinHeapBinaryTree
     parent_child_check(replacement_node, delete_index)
   end
 
-  def breadth_first_search(target_node,root)
+  def find(target_node)
+    target_index = tree.find_index(target_node)
+    byebug
     return nil if target_node.nil?
     queue = Queue.new
     queue.enq(root)
     until queue.empty?
       current_node = queue.deq
-
+      # compare current_node to target_node node
+      if current_node == target_node
+        p "#{target_node} is in the tree"
+      elsif
+        queue.enq(left_child(target_index))
+        queue.enq(right_child(target_index))
+      end
+      return nil
     end
   end
 
+  def printf(tree)
+
+  end
 private
 
   def set_min_heap_state

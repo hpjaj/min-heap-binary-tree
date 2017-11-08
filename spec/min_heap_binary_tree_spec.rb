@@ -357,25 +357,117 @@ RSpec.describe MinHeapBinaryTree do
   #     )
   #   end
   # end
-  #
-  # describe "#find" do
-  #   it "finds a node in the tree" do
-  #     initial_node = Node.new 3
-  #     min_heap_tree = MinHeapBinaryTree.new(initial_node)
-  #
-  #     node_2 = Node.new 2
-  #     node_7 = Node.new 7
-  #
-  #     min_heap_tree.insert(node_2)
-  #     min_heap_tree.insert(node_7)
-  #
-  #     min_heap_tree.find(node_7)
-  #
-  #     expect(min_heap_tree.tree).to eq(
-  #       [
-  #         node_7
-  #       ]
-  #     )
-  #   end
-  # end
+
+  describe "#find" do
+    it "handles nil gracefully" do
+      initial_node = Node.new 3
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_2 = Node.new 2
+      node_4 = Node.new 4
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_4)
+
+      expect(min_heap_tree.find(nil)).to eq nil
+    end
+
+    it "finds a right node in the tree" do
+      initial_node = Node.new 3
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_2 = Node.new 2
+      node_7 = Node.new 7
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_7)
+
+      min_heap_tree.tree.find(node_7)
+
+      expect(min_heap_tree.find(node_7)).to eq node_7
+    end
+
+    it "properly find a left node" do
+      initial_node = Node.new 3
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_9 = Node.new 9
+
+      min_heap_tree.insert(node_9)
+
+      expect(min_heap_tree.tree.find(node_9)).to eq node_9
+    end
+
+    it "properly finds a left-left node" do
+      initial_node = Node.new 1
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_2 = Node.new 2
+      node_3 = Node.new 3
+      node_4 = Node.new 4
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_3)
+      min_heap_tree.insert(node_4)
+
+      expect(min_heap_tree.tree.find(node_4)).to eq node_4
+    end
+
+    it "properly finds a left-right node" do
+      initial_node = Node.new 1
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_2 = Node.new 2
+      node_3 = Node.new 3
+      node_4 = Node.new 4
+      node_5 = Node.new 5
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_3)
+      min_heap_tree.insert(node_4)
+      min_heap_tree.insert(node_5)
+
+      expect(min_heap_tree.tree.find(node_5)).to eq node_5
+    end
+
+    it "properly finds a right-left node" do
+      initial_node = Node.new 1
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_2 = Node.new 2
+      node_3 = Node.new 3
+      node_4 = Node.new 4
+      node_5 = Node.new 5
+      node_6 = Node.new 6
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_3)
+      min_heap_tree.insert(node_4)
+      min_heap_tree.insert(node_5)
+      min_heap_tree.insert(node_6)
+
+      expect(min_heap_tree.tree.find(node_6)).to eq node_6
+    end
+
+    it "properly finds a right-right node" do
+      initial_node = Node.new 1
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_2 = Node.new 2
+      node_3 = Node.new 3
+      node_4 = Node.new 4
+      node_5 = Node.new 5
+      node_6 = Node.new 6
+      node_7 = Node.new 7
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_3)
+      min_heap_tree.insert(node_4)
+      min_heap_tree.insert(node_5)
+      min_heap_tree.insert(node_6)
+      min_heap_tree.insert(node_7)
+
+      expect(min_heap_tree.tree.find(node_7)).to eq node_7
+    end
+  end
 end
