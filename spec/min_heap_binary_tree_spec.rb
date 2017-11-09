@@ -469,5 +469,27 @@ RSpec.describe MinHeapBinaryTree do
 
       expect(min_heap_tree.find(node_7)).to eq node_7
     end
+
+    it "returns nil if not in the tree" do
+      initial_node = Node.new 1
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_2 = Node.new 2
+      node_3 = Node.new 3
+      node_4 = Node.new 4
+      node_5 = Node.new 5
+      node_6 = Node.new 6
+      node_7 = Node.new 7
+
+      min_heap_tree.insert(node_2)
+      min_heap_tree.insert(node_3)
+      min_heap_tree.insert(node_4)
+      min_heap_tree.insert(node_5)
+      min_heap_tree.insert(node_6)
+      min_heap_tree.insert(node_7)
+
+      expect(min_heap_tree.find(node_9)).to eq nil
+
+    end
   end
 end
