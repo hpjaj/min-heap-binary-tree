@@ -24,7 +24,7 @@ class MinHeapBinaryTree
   end
 
   def find(target_node)
-    return nil if target_node.nil? ## guard clause
+    return nil if target_node.nil?
 
     node = nil
 
@@ -46,8 +46,6 @@ private
 
   def tree_to_string
     tree.compact.map do |item|
-      # get rid of nil (investigate ways to remove nil from arrays)
-      # print into a string (investigate ways to convert arrays to strings )
       item.value.to_s + ("\n")
     end
   end
