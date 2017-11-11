@@ -24,19 +24,33 @@ class MinHeapBinaryTree
   end
 
   def find(target_node)
-    byebug
-    if target_node.nil?
-      nil
-    else
-      target_index = tree.find_index(target_node)
-      return tree[target_index]
+    return nil if target_node.nil? ## guard clause
+
+    node = nil
+
+    tree.each do |item|
+      if item == target_node
+        node = item
+        break
+      end
+    end
+
+    node
+  end
+
+  def printf
+    tree_to_string.join
+  end
+
+private
+
+  def tree_to_string
+    tree.compact.map do |item|
+      # get rid of nil (investigate ways to remove nil from arrays)
+      # print into a string (investigate ways to convert arrays to strings )
+      item.value.to_s + ("\n")
     end
   end
-
-  def printf(tree)
-
-  end
-private
 
   def set_min_heap_state
     @in_min_heap_state = false

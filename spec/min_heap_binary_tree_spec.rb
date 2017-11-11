@@ -328,35 +328,20 @@ RSpec.describe MinHeapBinaryTree do
     end
   end
 
-  # describe "#print" do
-  #   it "properly prints the whole tree" do
-  #     initial_node = Node.new 5
-  #     min_heap_tree = MinHeapBinaryTree.new(initial_node)
-  #
-  #     node_7 = Node.new 7
-  #     node_3 = Node.new 3
-  #     node_9 = Node.new 9
-  #     node_1 = Node.new 1
-  #     node_2 = Node.new 2
-  #     node_4 = Node.new 4
-  #     node_8 = Node.new 8
-  #
-  #     min_heap_tree.print
-  #
-  #     expect(min_heap_tree.tree).to eq(
-  #       [
-  #         nil,
-  #         node_3,
-  #         node_2,
-  #         node_8,
-  #         node_7,
-  #         initial_node,
-  #         node_4,
-  #         node_9
-  #       ]
-  #     )
-  #   end
-  # end
+  describe "#printf" do
+    it "properly prints the whole tree" do
+      initial_node = Node.new 5
+      min_heap_tree = MinHeapBinaryTree.new(initial_node)
+
+      node_7 = Node.new 7
+      node_3 = Node.new 3
+
+      min_heap_tree.insert(node_7)
+      min_heap_tree.insert(node_3)
+
+      expect(min_heap_tree.printf).to eq("3\n7\n5\n")
+    end
+  end
 
   describe "#find" do
     it "handles nil gracefully" do
@@ -480,6 +465,7 @@ RSpec.describe MinHeapBinaryTree do
       node_5 = Node.new 5
       node_6 = Node.new 6
       node_7 = Node.new 7
+      node_9 = Node.new 9
 
       min_heap_tree.insert(node_2)
       min_heap_tree.insert(node_3)
@@ -489,7 +475,6 @@ RSpec.describe MinHeapBinaryTree do
       min_heap_tree.insert(node_7)
 
       expect(min_heap_tree.find(node_9)).to eq nil
-
     end
   end
 end
